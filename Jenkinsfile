@@ -8,7 +8,7 @@ pipeline{
         }
         stage('test'){
             steps{
-                bat 'npm test --no-watch'
+                bat 'npm test -- --no-watch'
             }
         }
         stage('start'){
