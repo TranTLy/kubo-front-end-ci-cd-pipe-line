@@ -11,14 +11,19 @@ pipeline{
                 bat 'npm test -- --no-watch'
             }
         }
-         stage('build'){
+        stage('build'){
             steps{
                 bat 'npm run build'
             }
         }
-        stage('start'){
+         stage('serve'){
             steps{
                 bat 'serve -s build'
+            }
+        }
+        stage('start'){
+            steps{
+                bat 'npm start'
             }
         }
     }
