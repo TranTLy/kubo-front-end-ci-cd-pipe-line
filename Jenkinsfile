@@ -1,18 +1,20 @@
 pipeline{
     agent any
 	
-	def prefix = 'abc'
+    def prefix = 'abc'
 
 	def sourceName = prefix + '-' + 'src-master.zip'
-	def sourcePath = '.'
+	def sourcePath = 'D:/src'
 	def sourceFullPath = sourcePath + '/' + sourceName
 	
     def targetFullPath = 'D:/build/' + prefix 
 	
     stages{
 		stage('Prepare'){
-			bat 'git archive -v -o ' + sourceFullPath + ' HEAD'
-			powershell -command 'Expand-Archive ' +  sourceFullPath + ' ' + targetFullPath 
+			steps{
+				bat 'git archive -v -o ' + sourceFullPath + ' HEAD'
+				powershell -command 'Expand-Archive ' +  sourceFullPath + ' ' + targetFullPath
+			}			 
 		}
         stage('install'){
             steps{
