@@ -1,19 +1,35 @@
 pipeline{
     agent any
+	
+	def prefix = 'abc'
+
+	def sourceName = prefix + '-' + 'src-master.zip'
+	def sourcePath = '.'
+	def sourceFullPath = sourcePath + '/' + sourceName
+	
+    def targetFullPath = 'D:/build/' + prefix 
+	
     stages{
+		stage('Prepare'){
+			bat 'git archive -v -o ' + sourceFullPath + ' HEAD'
+			powershell -command 'Expand-Archive ' +  sourceFullPath + ' ' + targetFullPath 
+		}
         stage('install'){
             steps{
-                sh 'npm install'
+				bat 'cd ' + targetFullPath
+                bat 'npm install'
             }
         }
         stage('test'){
             steps{
-                sh 'npm run test'
+				bat 'cd ' + targetFullPath
+                bat 'npm run test'
             }
         }
         stage('start'){
             steps{
-                sh 'npm start'
+				bat 'cd ' + targetFullPath
+                bat 'npm start'
             }
         }
     }
