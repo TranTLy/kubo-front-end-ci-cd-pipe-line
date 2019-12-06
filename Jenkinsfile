@@ -13,7 +13,7 @@ pipeline{
 		stage('Prepare'){
 			steps{
 				bat 'git archive -v -o ' + sourceFullPath + ' HEAD'
-				powershell -command 'Expand-Archive ' +  sourceFullPath + ' ' + targetFullPath
+				//powershell -command 'Expand-Archive ' +  sourceFullPath + ' ' + targetFullPath
 			}			 
 		}
         stage('install'){
